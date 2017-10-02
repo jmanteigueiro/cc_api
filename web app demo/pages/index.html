@@ -1,0 +1,245 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Cartão de Cidadão</title>
+    <script src="./pagesjs/jquery-3.2.1.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css">
+
+    <script>
+      // QUANDO O DOCUMENTO ESTIVER CARREGADO
+      $(document).ready(
+        function() {
+          // ASSOCIAR ÀS 2 TABS UM EVENTO ONCLICK
+          $('#tab1').click( function () {
+            $('#div1').toggle();
+            $('#div2').toggle();
+            // TOGGLE CLASS -NEW
+            $('#tab1').toggleClass('active');
+            $('#tab2').toggleClass('active');
+          });
+
+          $('#tab2').click( function () {
+            $('#div1').toggle();
+            $('#div2').toggle();
+            // TOGGLE CLASS -NEW 
+            $('#tab1').toggleClass('active');
+            $('#tab2').toggleClass('active');
+          });
+
+        }
+      );
+    </script>
+
+  </head>
+  <script>
+    $(function(){ // jQuery DOM ready
+        url = '/getCartao'
+        $.get(url, function (data) {
+          var rawData = JSON.parse(data);
+
+          var cardType = rawData[0];
+
+          var deliveryEntity = rawData[1];
+          var country = rawData[2];
+          var documentType = rawData[3];
+          var cardNumber = rawData[4];
+          var cardNumberPAN = rawData[5];
+          var cardVersion = rawData[6];
+          var deliveryDate = rawData[7];
+          var locale = rawData[8];
+          var validityDate = rawData[9];
+          var name = rawData[10];
+          var firstName = rawData[11];
+          var sex = rawData[12];
+          var nationality = rawData[13];
+          var birthday = rawData[14];
+          var height = rawData[15];
+          var numBI = rawData[16];
+          var nameFather = rawData[17];
+          var firstnameFather = rawData[18];
+          var nameMother = rawData[19];
+          var firstnameMother = rawData[20];
+          var numNIF = rawData[21];
+          var numSS = rawData[22];
+          var numSNS = rawData[23];
+          var notes = rawData[24];
+
+          //var ncertifs = rawData.length - 25;
+
+          var certifs = [];
+          for (var i = 0; i < 8; i++)
+            certifs.push(rawData[25+i]);
+
+
+          document.getElementById('cardType').innerHTML = cardType;
+          document.getElementById('firstName').innerHTML = firstName;
+          document.getElementById('name').innerHTML = name;
+          document.getElementById('cardNumber').innerHTML = cardNumber;
+          document.getElementById('documentType').innerHTML = documentType;
+          document.getElementById('cardNumberPAN').innerHTML = cardNumberPAN;
+          document.getElementById('cardVersion').innerHTML = cardVersion;
+          document.getElementById('locale').innerHTML = locale;
+          document.getElementById('deliveryDate').innerHTML = deliveryDate;
+          document.getElementById('validityDate').innerHTML = validityDate;
+          document.getElementById('birthday').innerHTML = birthday;
+          document.getElementById('height').innerHTML = height;
+          document.getElementById('numnif').innerHTML = numNIF;
+          document.getElementById('numss').innerHTML = numSS;
+          document.getElementById('numsns').innerHTML = numSNS; 
+          document.getElementById('notes').innerHTML = notes;
+          document.getElementById('pais').innerHTML = country;
+          document.getElementById('nacionalidade').innerHTML = nationality;
+          document.getElementById('father').innerHTML = firstnameFather.concat(" "+nameFather);
+          document.getElementById('mother').innerHTML = firstnameMother.concat(" "+nameMother);
+          document.getElementById('sex').innerHTML = sex;
+
+
+
+          document.getElementById('certif1').innerHTML = certifs[0];
+          document.getElementById('certif2').innerHTML = certifs[1];
+          document.getElementById('certif3').innerHTML = certifs[2];
+          document.getElementById('certif4').innerHTML = certifs[3];
+          document.getElementById('certif5').innerHTML = certifs[4];
+          document.getElementById('certif6').innerHTML = certifs[5];
+          document.getElementById('certif7').innerHTML = certifs[6];
+          document.getElementById('certif8').innerHTML = certifs[7];
+        });
+    });
+
+  </script>
+  <body class="menu">
+    <header>
+      <div class="nav">
+        <ul>
+          <li id="tab1" class="info active">Informação</li>
+          <li id="tab2" class="photo">Fotografia</li>
+        </ul>
+      </div>
+    </header>
+    <div id='div1'>
+    <table>
+      <tr>
+        <th class="padup">Dados Pessoais</th>
+        <th class="padup">Dados do Cartão</th>
+      </tr>
+
+
+      <tr>
+        <td>
+          <table id="wrapper">
+          <tr id="test">
+          <br>
+            <b class="padleft">Nome(s): </b><span id="firstName"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Apelido(s): </b><span id="name"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Sexo: </b><span id="sex"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Data de Nascimento: </b><span id="birthday"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Altura: </b><span id="height"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">País: </b><span id="pais"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Nacionalidade: </b><span id="nacionalidade"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Número Identificação Civil: </b><span id="cardNumber"></span><br>
+          </tr>
+          <tr>
+          <b class="padleft">Número de Identificação Fiscal: </b><span id="numnif"></span><br>
+          </tr>
+          <tr>
+          <b class="padleft">Número de Segurança Social: </b><span id="numss"></span><br>
+          </tr>
+          <tr>
+          <b class="padleft">Número de Utente de Saúde: </b><span id="numsns"></span><br>
+          </tr>
+          <tr>
+          <b class="padleft">Nome do pai: </b><span id="father"></span><br>
+          </tr>
+          <tr>
+          <b class="padleft">Nome da mãe: </b><span id="mother"></span><br>
+          </tr>
+          </table>
+        </td>
+
+        <td>
+          <table id="wrapper">
+          <tr>
+            <br>
+            <b class="padleft">Tipo de cartão: </b><span id="cardType"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Tipo de documento: </b><span id="documentType"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">PAN: </b><span id="cardNumberPAN"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Versão do Cartão: </b><span id="cardVersion"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Local de Emissão: </b><span id="locale"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Data de Emissão: </b><span id="deliveryDate"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Data de Validade: </b><span id="validityDate"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Notas: </b><span id="notes"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft">Certificados:</b><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif1"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif2"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif3"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif4"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif5"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif6"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif7"></span><br>
+          </tr>
+          <tr>
+            <b class="padleft"></b><span id="certif8"></span><br>
+          </tr>
+          </table>
+        </td>
+      </tr>
+
+    </table>
+    </div>
+    <div id='div2' style="display:none">
+    <center>
+      <table>
+        <tr>
+          <td><img src="../images/photo.jpg" alt="" /></td>
+        </tr>
+      </table>
+    </center>
+    </div>
+  </body>
+
+
+</html>
